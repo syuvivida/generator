@@ -1,0 +1,1 @@
+cmsRun ana.py inputFiles="file:GEN.root" maxEvents=-1 > Logana
