@@ -1,0 +1,33 @@
+#************************************************************
+#*                        MadGraph 5                        *
+#*                                                          *
+#*                *                       *                 *
+#*                  *        * *        *                   *
+#*                    * * * * 5 * * * *                     *
+#*                  *        * *        *                   *
+#*                *                       *                 *
+#*                                                          *
+#*                                                          *
+#*         VERSION 1.1.0                 2011-04-22         *
+#*                                                          *
+#*    The MadGraph Development Team - Please visit us at    *
+#*    https://server06.fynu.ucl.ac.be/projects/madgraph     *
+#*                                                          *
+#************************************************************
+#*                                                          *
+#*               Command File for MadGraph 5                *
+#*                                                          *
+#*     run as ./bin/mg5  filename                           *
+#*                                                          *
+#************************************************************
+
+import model smzerobmass
+# Define multiparticle labels
+define p u c s d b u~ c~ s~ d~ b~ g
+define j  = p
+# Specify process(es) to run
+generate p p > mu- mu+ / h @0
+add process p p > mu- mu+ j / h @1
+add process p p > mu- mu+ j j / h @2
+# Output processes to MadEvent directory
+output -f

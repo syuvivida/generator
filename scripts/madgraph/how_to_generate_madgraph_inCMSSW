@@ -1,0 +1,73 @@
+# Instruction from Jacky Yeng-Ming Tzeng
+
+1).Download http://cms-project-generators.web.cern.ch/cms-project-generators/slc5_
+ia32_gcc434/madgraph/V5_1.1/7TeV_Summer11/MG5v1.1.tar.gz 
+
+2). Extract this tar file :
+tar -xjf MG5v1.1.tar.gz 
+
+3). enter the folder of MG5v1.1 
+
+cd MG5v1.1
+
+4). copy a template :
+cp -r Template Zjet
+
+5). enter wanted folder :
+cd Zjet
+
+6). Download cardsfrom http://cms-project-generators.web.cern.ch/cms-project-generators/slc5_ia32
+_gcc434/madgraph/V5_1.1/7TeV_Summer11/Cards/Z_Jets/zjets_smzerobmass_proc_card_
+mg5.dat 
+
+Then use this one instead of Cards/proc_card_mg5.dat
+
+7). several parameters can be changed in Cards/run_card.dat :
+i). event number : nevents
+ii). random seed : iseed
+    (if you want to run multi-jobs, remember to assign different seed)
+iii). PDF set : pdlabel
+iv). xqcut
+
+8). Make a new-space with those conditions from "Zjet" folder:
+./bin/newprocess_mg5
+
+--> Then got a tar file of "madevent.tar.gz"
+For example, if I consider events with Z+jets(up to 4), it will take 1.5 hours. 
+
+9). Prepare a test space like :
+mkdir TEST 
+mv madevent.tar.gz TEST
+cd TEST
+tar -xjf madevent.tar.gz
+
+10). start to generate events :
+./bin/generate_events x y job_name     (x :0-single 2- multiple cpu; y : n cpus)
+
+Something I use like :
+./bin/generate_events 2 1 zjets
+
+(It will take very long time, since we are considering 4 additional jets. It's
+better to change the "y" from 1 to 2 or 3..., and use smaller events. Otherwise
+the additional jets should be reduced to 3 or 2)
+
+11). The LHE file will be stored in TEST/Events/*_unweighted_lhe*
+gzip -d *_unweighted_lhe.gz
+
+For the CMSSW interface:
+1). Take CMSSW_5_3_2_patch4 as an example:
+scramv1 project CMSSW CMSSW_5_3_2_patch4
+
+2). cd CMSSW_5_3_2_patch4/src
+
+3). cvs co Configuration/Generator/python/ZEE_7TeV_cfi.py
+
+4). scramv1 b 
+
+5). cmsDriver.py Configuration/Generator/python/ZEE_7TeV_cfi.py --filein
+YOURLEHFILE -s GEN --conditions START52_V9::All --beamspot
+Realistic8TeVCollision --datatier GEN-SIM --eventcontent RAW -n 200 --no_exec
+
+6). cmsRun ZEE_7TeV_cfi_py_GEN.py
+
+

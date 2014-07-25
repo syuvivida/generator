@@ -1,0 +1,282 @@
+ooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+o                                                     o
+o       How to run MCFM (by Shin-Shan Yu)             o
+o                                                     o
+ooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+
+
+ooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+o                                                     o
+o       Pitfalls                                      o
+o                                                     o
+ooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+
+
+-3) If you want to read a very long LHgrid file names, follow the 
+ instruction from Sebastian Naumann-Emme.
+ Change the following lines in the two files:
+ ./src/Inc/lhapdf.f
+ ./src/Parton/pdfwrap_lhapdf.f
+
+
+ In lhapdf.f:
+============
+
+      character*30 PDFname
+
+To:
+
+      character*40 PDFname
+
+
+
+In pdfwrap_lhapdf.f:
+====================
+
+      character*30 oldPDFname
+
+To:
+
+      character*40 oldPDFname
+
+
+
+And:
+
+     if ((i .lt. 20) .and. (validPDF .eqv. .false.)) goto 20
+
+To:
+
+     if ((i .lt. 40) .and. (validPDF .eqv. .false.)) goto 20
+
+
+
+And:
+
+      write(6,98) 'PDFname',PDFname(1:29)
+
+To:
+
+      write(6,98) 'PDFname',PDFname(1:39) 
+ 
+
+
+-2) 
+ In order to evaluate PDF errors in the ntuple mode, one needs 64-bit 
+ CERN library. 
+ Other users have been running the ntuple mode without LHAPDF by building 
+ 32-bit mcfm. 
+ However, if we want to use LHAPDF in an easy way, we need to build 
+ 64-bit LHAPDF library and use everything 64-bit. 
+ (Note, 32-bit lxplus machines are not available any more.)
+
+ a) Download the CERN 64bit libraries from
+ http://cernlib.web.cern.ch/cernlib/version.html
+ (libkernlib.a, libmathlib.a, and libpacklib_noshif.a).
+ Put these 3 libraries at <my_CERNLIB_area>.
+ Point to <my_CERNLIB_area> in makefile.
+
+ set CERNLIB = <my_CERNLIB_area>
+
+
+ b) In the make file, change the following setting
+
+  NTUPLES = YES 
+
+
+ c) In the input file, change the following setting
+
+ .true.		[creatent]
+
+
+ d) Download the following two modified fortran codes for PDF errors in 
+ ntuple mode.
+ Note, it works for CT10. But if one wants to use it for NNPDF and MSTW, 
+ need to add additional lines. In MCFM, the number of PDF error sets is 
+ hard-wired.
+
+ http://syu.web.cern.ch/syu/modified_fortran_code_forPDFntuple.tgz
+
+ dswhbook.f could be put in the top directory.
+ chtags.f has to be put in src/Inc directory.
+
+
+ If you only want to run in ntuple mode without evaluating PDF errors, 
+ you could skip step d). 
+
+
+
+
+-1) 
+ Note, it takes forever to run with the following mode.
+
+.true.		[evtgen]
+
+ Just 2000 interations will take 11 hours on a 2.66GHz machine.
+
+
+ooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+o                                                     o
+o        How to build and run                         o
+o                                                     o
+ooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+
+0) 
+Official download MCFM 6.1 tar ball from http://mcfm.fnal.gov/#download
+
+http://mcfm.fnal.gov/mcfm-6.1.tar.gz
+
+
+1) Assume that the directory where you untar MCFM is "$MCFMDIR"
+
+
+2) Untar the tar ball
+ 
+
+ tar xvzf mcfm-6.1.tar.gz
+
+
+
+3) A directory "MCFM" is created.
+
+ cd MCFM
+ 
+ mkdir LHAPDF   [ will be used later]
+
+ mkdir Bin/PDFsets [ will be used later]
+
+
+ Download your favourite PDF set from here:
+ http://lhapdf.hepforge.org/pdfsets
+ Put *.LHgrid at $MCFMDIR/MCFM/Bin/PDFsets
+
+** If you want to read a LHgrid file with very long name, 
+   please go to -3).
+
+
+
+4) Build LHAPDF
+
+ Find a temporary location to put your LHAPDF tar ball.
+
+ Download the tar ball from 
+http://www.hepforge.org/archive/lhapdf/lhapdf-5.8.7.tar.gz.
+
+
+
+ tar xvzf lhapdf-5.8.7.tar.gz
+
+ cd lhapdf-5.8.7
+
+ ./configure --prefix=$MCFMDIR/MCFM/LHAPDF
+
+ make
+ 
+ make install
+
+
+
+ Now, you will find both shared libraries and static library 
+ in $MCFMDIR/MCFM/LHAPDF/lib.
+
+ Also you will find PDFsets.index in 
+  $MCFMDIR/MCFM/LHAPDF/share/lhapdf/PDFsets.index.
+
+
+
+5) 
+ Download the tar ball of modified fortran code from Steve Linn:
+
+https://syu.web.cern.ch/syu/MCFM/modified_fortran_code_from_steve.tgz
+
+
+
+  cd $MCFMDIR/MCFM
+  tar xvzf modified_fortran_code_from_steve.tgz
+
+
+
+6) 
+
+  ./Install
+
+
+
+7) Edit the make file.
+
+CERNLIB     = <my_CERNLIB_area>   [You don't need to change this line if 
+                                   you are not running in ntuple mode.]
+
+
+LHAPDFLIB   = $MCFMDIR/MCFM/LHAPDF/lib
+
+PDFROUTINES = LHAPDF
+
+NTUPLES = NO                      [YES if you are running in ntuple mode.]
+
+
+[Add one additional line under nplotter.o]
+
+nplotter_Zjets.o \
+
+
+[Replace packlib with packlib_noshift]
+
+
+8) 
+ Ready to build everything for MCFM
+
+
+ cd $MCFMDIR/MCFM
+ make clean 
+
+
+ cd QCDLoop/ff
+ make clean 
+ make
+
+ cd ../ql
+ make clean
+ make
+
+ cd ..
+ make clean
+ make
+
+ cd .. [Now you are at the top directory]
+ make 
+
+ 
+
+ If everything is compiled properly, you will see 
+   ----> MCFM compiled with LHAPDF routines <----
+   ----> MCFM compiled with histogram output only <----
+ 
+
+
+9) 
+
+ Download an example run card from here:
+ https://syu.web.cern.ch/syu/MCFM/eiko.DAT and 
+ create a test directory
+
+
+
+ mkdir $MCFMDIR/MCFM/Bin/mytest
+ 
+ cp -p eiko.DAT $MCFMDIR/MCFM/Bin/mytest/.
+
+
+
+10) 
+ Run!
+
+ cd $MCFMDIR/MCFM/Bin/
+
+ Download the set up for LHAPDF here: 
+ https://syu.web.cern.ch/syu/MCFM/setup_LHAPDF
+ and copy the file to $MCFMDIR/MCFM/Bin
+
+ source setup_LHAPDF 
+ ./mcfm mytest eiko.DAT
+

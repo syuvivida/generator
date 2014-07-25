@@ -1,0 +1,208 @@
+ooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+o                                                     o
+o       How to run MCFM 6.6 (by Shin-Shan Yu)         o
+o                                                     o
+ooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+
+
+ooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+o                                                     o
+o       Pitfalls                                      o
+o                                                     o
+ooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+
+
+-2) 
+ In order to evaluate PDF errors in the ntuple mode, one needs 64-bit 
+ CERN library. 
+ Other users have been running the ntuple mode without LHAPDF by building 
+ 32-bit mcfm. 
+ However, if we want to use LHAPDF in an easy way, we need to build 
+ 64-bit LHAPDF library and use everything 64-bit. 
+ (Note, 32-bit lxplus machines are not available any more.)
+
+ a) Download the CERN 64bit libraries from
+ http://cernlib.web.cern.ch/cernlib/version.html
+ (libkernlib.a, libmathlib.a, and libpacklib_noshif.a).
+ Put these 3 libraries at <my_CERNLIB_area>.
+ Point to <my_CERNLIB_area> in makefile.
+
+ set CERNLIB = <my_CERNLIB_area>
+
+
+ b) In the make file, change the following setting
+
+  NTUPLES = YES 
+
+
+ c) In the input file, change the following setting
+
+ .true.		[creatent]
+
+
+ d) Download the following two modified fortran codes for PDF errors in 
+ ntuple mode.
+ Note, it works for CT10. But if one wants to use it for NNPDF and MSTW, 
+ need to add additional lines. In MCFM, the number of PDF error sets is 
+ hard-wired.
+
+wget http://syu.web.cern.ch/syu/modified_fortran_code_forPDFntuple.tgz
+
+ dswhbook.f could be put in the top directory.
+ chtags.f has to be put in src/Inc directory.
+
+
+ If you only want to run in ntuple mode without evaluating PDF errors, 
+ you could skip step d). 
+
+
+
+
+-1) 
+ Note, it takes forever to run with the following mode.
+
+.true.		[evtgen]
+
+ Just 2000 interations will take 11 hours on a 2.66GHz machine.
+
+
+ooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+o                                                     o
+o        How to build and run                         o
+o                                                     o
+ooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+
+0) 
+Official download MCFM 6.6 tar ball from http://mcfm.fnal.gov/#download
+
+wget http://mcfm.fnal.gov/MCFM-6.6.tar.gz
+
+
+1) Assume that the directory where you untar MCFM-6.6.tar.gz is "$MCFMDIR"
+setenv MCFMDIR $PWD
+
+2) Untar the tar ball
+ 
+
+ tar xvzf MCFM-6.6.tar.gz
+
+3) A directory "MCFM-6.6" is created.
+
+ cd MCFM-6.6
+ 
+ mkdir LHAPDF   [ will be used later]
+
+ mkdir Bin/PDFsets [ will be used later]
+
+
+ Download your favourite PDF set from here:
+ http://lhapdf.hepforge.org/pdfsets
+ Put *.LHgrid at $MCFMDIR/MCFM/Bin/PDFsets
+
+
+4) Build LHAPDF
+
+cd $MCFMDIR
+wget http://www.hepforge.org/archive/lhapdf/lhapdf-5.8.7.tar.gz
+
+
+ tar xvzf lhapdf-5.8.7.tar.gz
+
+ cd lhapdf-5.8.7
+
+ ./configure --prefix=$MCFMDIR/MCFM-6.6/LHAPDF
+
+ make
+ 
+ make install
+
+
+
+ Now, you will find both shared libraries and static library 
+ in $MCFMDIR/MCFM-6.6/LHAPDF/lib
+
+ Also you will find PDFsets.index in 
+  $MCFMDIR/MCFM-6.6/LHAPDF/share/lhapdf/PDFsets.index
+
+
+5) Go back to $MCFMDIR/MCFM-6.6
+
+  cd $MCFMDIR/MCFM-6.6
+
+6) Within  $MCFMDIR/MCFM-6.6
+
+  ./Install
+
+
+7) Edit makefile.
+
+CERNLIB     = <my_CERNLIB_area>   [You don't need to change this line if 
+                                   you are not running in ntuple mode.]
+
+
+LHAPDFLIB   = $(MCFMDIR)/MCFM-6.6/LHAPDF/lib
+
+PDFROUTINES = LHAPDF
+
+NTUPLES = NO                      [YES if you are running in ntuple mode.]
+
+
+
+8) Use the fixed masscuts.f and gg_ww.f provided by Keith Ellis and John Campbell:
+
+cd $MCFMDIR/MCFM-6.6/src/Need
+rm -rf masscuts.f
+wget https://syu.web.cern.ch/syu/MCFM/masscuts.f
+
+cd $MCFMDIR/MCFM-6.6/src/WW
+rm -rf gg_ww.f
+wget https://syu.web.cern.ch/syu/MCFM/gg_ww.f
+
+
+
+9) 
+ Ready to build everything for MCFM
+
+ cd $MCFMDIR/MCFM-6.6
+ make clean 
+
+
+ cd QCDLoop/ff
+ make clean 
+ make
+
+ cd ../ql
+ make clean
+ make
+
+ cd ..
+ make clean
+ make
+
+ cd .. [Now you are at the directory $MCFMDIR/MCFM-6.6]
+ make 
+
+ 
+
+ If everything is compiled properly, you will see 
+   ----> MCFM compiled with LHAPDF routines <----
+   ----> MCFM compiled with histogram output only <----
+ 
+
+10) Create a directory to put yout data card
+ 
+  mkdir $MCFMDIR/MCFM-6.6/Bin/Cards
+
+
+11) 
+ Run!
+
+ cd $MCFMDIR/MCFM-6.6/Bin/
+
+ Download the set up for LHAPDF here: 
+wget https://syu.web.cern.ch/syu/MCFM/setup_LHAPDF
+ and copy the file to $MCFMDIR/MCFM-6.6/Bin
+
+ source setup_LHAPDF 
+ ./mcfm Cards eiko.DAT
+

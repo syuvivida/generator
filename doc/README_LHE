@@ -1,0 +1,37 @@
+cmsRun GeneratorInterface/LHEInterface/test/testReader_cfg.py
+cmsRun GeneratorInterface/LHEInterface/test/dumpLHE_cfg.py
+
+run the macro LHE_angular
+
+In order to extract LHE file of an AOD sample, use AOD sample as an input,
+then do the following.
+
+1) cmsrel CMSSW_5_3_9
+   cd CMSSW_5_3_9/src
+   cmsenv
+   cvs co -r V00-08-02 GeneratorInterface/LHEInterface
+   scramv1 b
+   cd GeneratorInterface/LHEInterface/test
+
+2) modify testWriter_cfg.py and run it.
+
+ to run certain events
+ 
+
+process.source = cms.Source("PoolSource",
+     fileNames = cms.untracked.vstring(
+    'file:/data2/syu/testsample/DYJetsToLL_TuneZ2_M-50_7TeV-madgraph-tauola_PU_S6_START44_V9B-v1_002612AC-463D-E111-802A-E0CB4E19F9BC.root'
+    )
+    ,eventsToProcess = cms.untracked.VEventRange('1:26:25232007','1:26:25232236')
+)
+
+If there are too many events to process,
+import FWCore.Utilities.FileUtils as FileUtils
+inputEventList = cms.untracked.VEventRange()
+inputEventList.extend( FileUtils.loadListFromFile ('test.txt') )
+
+process.source = cms.Source("PoolSource",
+     fileNames = cms.untracked.vstring(
+    'file:/data2/syu/testsample/DYJetsToLL_TuneZ2_M-50_7TeV-madgraph-tauola_PU_S6_START44_V9B-v1_002612AC-463D-E111-802A-E0CB4E19F9BC.root')
+    ,eventsToProcess = inputEventList
+)

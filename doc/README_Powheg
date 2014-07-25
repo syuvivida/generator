@@ -1,0 +1,30 @@
+1) 
+
+cmsrel CMSSW_5_3_9
+cd CMSSW_5_3_9/src/
+cmsenv
+
+cvs co -r V00-07-13 GeneratorInterface/LHEInterface
+cvs co Configuration/GenProduction/python/EightTeV/DYToMuMu_M-20_CT10_8TeV-powheg_cfg.py
+
+2) Replace the following files
+
+a) use the latest GeneratorInterface/LHEInterface/data/create_lhe_powheg.sh
+b) put UserCode/syu/scripts/zjet/LHE/DummyLHEAnalyzer.cc in GeneratorInterface/LHEInterface/test
+c) put UserCode/syu/scripts/zjet/LHE/dumpLHE_cfg.py in GeneratorInterface/LHEInterface/test
+
+
+3) modify Configuration/GenProduction/python/EightTeV/DYToMuMu_M-20_CT10_8TeV-powheg_cfg.py
+
+  Use the latest powheg box, such as "powhegboxv2.0_Jul2013"
+
+4) scramv1 b
+
+5) cmsRun DYToMuMu_M-20_CT10_8TeV-powheg_cfg.py
+
+ A output.lhe will be produced.
+
+6)  convert lhe to root file
+cmsDriver.py MCDBtoEDM --conditions auto:mc -s NONE --eventcontent RAWSIM --datatier GEN --filein file:output.lhe -n -1
+
+7) cmsRun dumpLHE_cfg.py
