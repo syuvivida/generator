@@ -1,0 +1,1 @@
+cmsRun hadronizer.py inputFiles="root://eoscms//eos/cms/store/generator/Summer11LegwmLHE/TTJets_MSDecays_central_7TeV-madgraph/GEN/START53_LV4-v2/00000/EEBCF3DC-A977-E311-8616-0025904C6376.root" maxEvents=20000 > Log-4

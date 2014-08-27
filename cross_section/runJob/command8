@@ -1,0 +1,1 @@
+cmsRun ana.py inputFiles="file:/afs/cern.ch/work/s/syu/Big_Generators/CheckXSec/TTbarH_HToGG_M-125_13TeV_amcatnlo-pythia8-tauola_GENSIM.root" maxEvents=-1 > Logana-4

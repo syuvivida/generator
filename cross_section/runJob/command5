@@ -1,0 +1,1 @@
+cmsRun Hadronizer_Tune4C_13TeV_aMCatNLO_LHE_pythia8_cff.py inputFiles="file:/afs/cern.ch/work/s/syu/Big_Generators/CheckXSec/TTbarH_HToGG_M-125_13TeV_amcatnlo-pythia8-tauola.root" maxEvents=10000 > Log-2

@@ -1,1 +1,1 @@
-cmsRun ana.py inputFiles="file:GEN.root" maxEvents=-1 > Logana
+cmsRun ana.py inputFiles="file:GEN-4.root" maxEvents=-1 >& Logana-4

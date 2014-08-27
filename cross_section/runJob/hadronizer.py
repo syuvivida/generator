@@ -57,8 +57,7 @@ process.configurationMetadata = cms.untracked.PSet(
 # Other statements
 process.genstepfilter.triggerConditions=cms.vstring("generation_step")
 from Configuration.AlCa.GlobalTag import GlobalTag
-process.GlobalTag = GlobalTag(process.GlobalTag, 'START52_V9::All', '')
-
+process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:mc', '')
 process.generator = cms.EDFilter("Pythia6HadronizerFilter",
     ExternalDecays = cms.PSet(
         Tauola = cms.untracked.PSet(
@@ -124,7 +123,7 @@ process.RAWSIMoutput = cms.OutputModule("PoolOutputModule",
     splitLevel = cms.untracked.int32(0),
     eventAutoFlushCompressedSize = cms.untracked.int32(5242880),
     outputCommands = process.RAWSIMEventContent.outputCommands,
-    fileName = cms.untracked.string('GEN.root'),
+    fileName = cms.untracked.string('GEN-4.root'),
     dataset = cms.untracked.PSet(
         filterName = cms.untracked.string(''),
         dataTier = cms.untracked.string('GEN-SIM')
@@ -134,18 +133,37 @@ process.RAWSIMoutput = cms.OutputModule("PoolOutputModule",
     )
 )
 
+process.genParticlesForFilter = cms.EDProducer("GenParticleProducer",
+    saveBarCodes = cms.untracked.bool(True),
+    src = cms.InputTag("generator"),
+    abortOnUnknownPDGCode = cms.untracked.bool(True)
+)
 
-process.dummy = cms.EDAnalyzer("GenXSecAnalyzer")
+process.emenrichingfilter = cms.EDFilter("EMEnrichingFilter",
+                                 filterAlgoPSet = cms.PSet(isoGenParETMin=cms.double(20.),
+                                                           isoGenParConeSize=cms.double(0.1),
+                                                           clusterThreshold=cms.double(20.),
+                                                           isoConeSize=cms.double(0.2),
+                                                           hOverEMax=cms.double(0.5),
+                                                           tkIsoMax=cms.double(5.),
+                                                           caloIsoMax=cms.double(10.),
+                                                           requireTrackMatch=cms.bool(False),
+                                                           genParSource = cms.InputTag("genParticlesForFilter")
+                                                           )
+                                 )
+
+
 
 # Path and EndPath definitions
-process.generation_step = cms.Path(process.pgen)
+process.generation_step = cms.Path(process.generator*(process.genParticlesForFilter + process.emenrichingfilter))
+#process.generation_step = cms.Path(process.generator)
+
 process.genfiltersummary_step = cms.EndPath(process.genFilterSummary)
 process.endjob_step = cms.EndPath(process.endOfProcess)
 process.RAWSIMoutput_step = cms.EndPath(process.RAWSIMoutput)
-process.ana = cms.Path(process.dummy)
 
 # Schedule definition
-process.schedule = cms.Schedule(process.generation_step,process.genfiltersummary_step,process.endjob_step,process.RAWSIMoutput_step,process.ana)
+process.schedule = cms.Schedule(process.generation_step,process.genfiltersummary_step,process.endjob_step,process.RAWSIMoutput_step)
 # filter all path with the production filter sequence
 for path in process.paths:
 	getattr(process,path)._seq = process.generator * getattr(process,path)._seq 
