@@ -5,7 +5,7 @@ externalLHEProducer = cms.EDProducer('ExternalLHEProducer',
                                      outputFile = cms.string('eiko_ZZ_final.lhe'),
                                      numberOfParameters = cms.uint32(2),
                                      args = cms.vstring('slc6_amd64_gcc481/powheg/tarball/',
-                                                        'eiko_ZZ'
+                                                        'eiko_ZZ_tarball.tar.gz'
                                                         ),
                                      nEvents = cms.uint32(100)
                                      )
