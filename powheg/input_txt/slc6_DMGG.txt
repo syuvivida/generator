@@ -1,0 +1,7 @@
+slc6_amd64_gcc481/powheg/V2.0/src
+powhegboxV2_Sep2014
+DMGG
+slc6_amd64_gcc481/powheg/V2.0/13TeV/examples/DMGG_NNPDF30_13TeV/DMGG_NNPDF30_13TeV.input
+eiko_DMGG_withgrids
+100
+123121
