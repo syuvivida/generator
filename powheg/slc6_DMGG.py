@@ -31,7 +31,7 @@ process.externalLHEProducer.args = cms.vstring('slc6_amd64_gcc481/powheg/V2.0/sr
                                                'powhegboxV2_Sep2014',
                                                'DMGG',
                                                'slc6_amd64_gcc481/powheg/V2.0/13TeV/examples/DMGG_NNPDF30_13TeV/DMGG_NNPDF30_13TeV.input',
-                                               'eiko_DMGG_tarball.tar.gz'
+                                               'eiko_DMGG'
                                                )
 
 
