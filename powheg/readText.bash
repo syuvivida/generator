@@ -1,3 +1,9 @@
 #!/bin/bash
 read -d "\n" a b c d e f g < $1
-./create_powheg_tarball.sh $a $b $c $d $e $f $g
+echo $a 
+echo $b 
+echo $c 
+echo $d 
+echo $e 
+echo $f 
+echo $g
