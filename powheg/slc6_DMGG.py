@@ -28,7 +28,7 @@ process.externalLHEProducer.numberOfParameters = cms.uint32(5)
 process.externalLHEProducer.outputFile = cms.string('events_final.lhe')
 
 process.externalLHEProducer.args = cms.vstring('slc6_amd64_gcc481/powheg/V2.0/src',
-                                               'powhegboxV2_Sep2014',
+                                               'powhegboxV2_Nov2014',
                                                'DMGG',
                                                'slc6_amd64_gcc481/powheg/V2.0/13TeV/examples/DMGG_NNPDF30_13TeV/DMGG_NNPDF30_13TeV.input',
                                                'eiko_DMGG'
