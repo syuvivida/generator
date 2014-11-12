@@ -1,0 +1,7 @@
+slc6_amd64_gcc481/powheg/V2.0/src
+powhegboxV2_Nov2014
+Z
+slc6_amd64_gcc481/powheg/V2.0/13TeV/examples/Z_ee_NNPDF30_13TeV/Z_ee_NNPDF30_13TeV.input
+eiko_Z
+100
+1231231

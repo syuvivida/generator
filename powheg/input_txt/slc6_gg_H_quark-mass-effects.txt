@@ -1,0 +1,7 @@
+slc6_amd64_gcc481/powheg/V2.0/src
+powhegboxV2_Nov2014
+gg_H_quark-mass-effects
+slc6_amd64_gcc481/powheg/V2.0/13TeV/examples/gg_H_quark-mass-effects_NNPDF30_13TeV/gg_H_quark-mass-effects_NNPDF30_13TeV.input
+eiko_gg_H_quark-mass-effects
+100
+1231231

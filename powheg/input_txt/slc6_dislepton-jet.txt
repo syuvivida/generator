@@ -1,7 +1,7 @@
 slc6_amd64_gcc481/powheg/V2.0/src
 powhegboxV2_Nov2014
-vbf_wp_wp
+dislepton-jet
 $PWD/powheg.input
-eiko_vbfwpwp
+eiko_dislepton-jet
 100
 1231231

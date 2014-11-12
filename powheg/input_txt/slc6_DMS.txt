@@ -1,5 +1,5 @@
 slc6_amd64_gcc481/powheg/V2.0/src
-powhegboxV2_Sep2014
+powhegboxV2_Nov2014
 DMS
 slc6_amd64_gcc481/powheg/V2.0/13TeV/examples/DMS_NNPDF30_13TeV/DMS_NNPDF30_13TeV.input
 eiko_DMS
