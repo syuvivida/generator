@@ -30,29 +30,17 @@ process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(options.maxEvents)
 )
 
-# Input source for LHE source
-#process.source = cms.Source("LHESource",
-#    fileNames = cms.untracked.vstring(options.inputFiles)
-#     fileNames = cms.untracked.vstring('file:DYJetsToLL_PtZ-100_TuneZ2_8TeV_ext-madgraph-tarball_487251988.lhe',
-#				       'file:DYJetsToLL_PtZ-100_TuneZ2_8TeV_ext-madgraph-tarball_487252016.lhe'
-#				       )
-			    
-#)
 
 process.source = cms.Source("PoolSource",
-			                                fileNames  = cms.untracked.vstring(options.inputFiles)
-			                                )
+                            fileNames  = cms.untracked.vstring(options.inputFiles)
+                            )
 
-
-process.dummy = cms.EDAnalyzer("GenFilterEfficiencyAnalyzer",
-                               genFilterInfoTag = cms.InputTag("genFilterEfficiencyProducer")
-)
 
 process.dummy2 = cms.EDAnalyzer("GenXSecAnalyzer")
 
 
 
 # Path and EndPath definitions
-process.ana = cms.Path(process.dummy)
+process.ana = cms.Path(process.dummy2)
 # Schedule definition
 process.schedule = cms.Schedule(process.ana)
