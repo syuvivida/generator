@@ -2,9 +2,9 @@
 
 cd $1
 
-export SCRAM_ARCH=slc6_amd64_gcc481; eval `scramv1 runtime -sh`
+export SCRAM_ARCH=slc6_amd64_gcc491; eval `scramv1 runtime -sh`
 
-read -d "\n" a b c d e f g < $2
+read -d "\n" a b c d e f g h < $2
 
 if [[ $d == *PWD* ]]; then
  sub=`echo "${d##*/}"`
@@ -12,7 +12,7 @@ if [[ $d == *PWD* ]]; then
  echo $d
 fi
 
-./create_powheg_tarball.sh $a $b $c $d $e $f $g
+./create_powheg_tarball.sh $a $b $c $d $e $f $g $h
 
 
 
