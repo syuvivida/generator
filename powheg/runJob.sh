@@ -2,7 +2,7 @@
 
 cd $1
 
-export SCRAM_ARCH=slc6_amd64_gcc491; eval `scramv1 runtime -sh`
+export SCRAM_ARCH=slc6_amd64_gcc481; eval `scramv1 runtime -sh`
 
 read -d "\n" a b c d e f g h < $2
 
