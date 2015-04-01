@@ -1,7 +1,7 @@
 slc6_amd64_gcc481/powheg/V2.0/src
 powhegboxV2_Feb2015
 ttH
-$PWD/powheg.input
+slc6_amd64_gcc481/powheg/V2.0/13TeV/examples/ttH_NNPDF30_13TeV/ttH_NNPDF30_13TeV.input
 eiko_ttH
 none
 100
