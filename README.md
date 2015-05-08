@@ -1,6 +1,6 @@
 generator
 =========
-git clone git@github.com:syuvivida/generator.git generator
+git clone git@github.com:syuvivida/generator.git
 
 cd generator
 
