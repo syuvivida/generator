@@ -1,5 +1,5 @@
 slc6_amd64_gcc481/powheg/V2.0/src
-powhegboxV2_Feb2015
+powhegboxV2_May2015
 vbf_wp_wp
 $PWD/powheg.input
 eiko_vbfwpwp

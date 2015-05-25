@@ -1,5 +1,5 @@
 slc6_amd64_gcc481/powheg/V2.0/src
-powhegboxV2_Feb2015
+powhegboxV2_May2015
 ttH
 slc6_amd64_gcc481/powheg/V2.0/13TeV/examples/ttH_NNPDF30_13TeV/ttH_NNPDF30_13TeV.input
 eiko_ttH
