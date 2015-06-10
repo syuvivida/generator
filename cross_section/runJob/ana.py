@@ -35,8 +35,8 @@ process.MessageLogger.cerr.FwkReport.reportEvery = 10000
 process.source = cms.Source(
     "PoolSource",
     fileNames  = cms.untracked.vstring(options.inputFiles),
-    duplicateCheckMode = cms.untracked.string('noDuplicateCheck',
-                                          )
+    duplicateCheckMode = cms.untracked.string('noDuplicateCheck'),
+)
 
 
 process.dummy2 = cms.EDAnalyzer("GenXSecAnalyzer")
