@@ -1,0 +1,8 @@
+slc6_amd64_gcc481/powheg/V2.0/src
+powhegboxV2_July2015
+VBF_H
+slc6_amd64_gcc481/powheg/V2.0/13TeV/examples/VBF_H_NNPDF30_13TeV/VBF_H_NNPDF30_13TeV.input
+eiko_VBF_H
+none
+100
+1231231
