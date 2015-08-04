@@ -1,8 +1,5 @@
-slc6_amd64_gcc481/powheg/V2.0/src
-powhegboxV2_July2015
 dijet
 slc6_amd64_gcc481/powheg/V2.0/13TeV/examples/dijet_NNPDF30_13TeV/dijet_NNPDF30_13TeV.input
-eiko_dijet
 none
 100
 2132121

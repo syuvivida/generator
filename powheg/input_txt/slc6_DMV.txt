@@ -1,8 +1,5 @@
-slc6_amd64_gcc481/powheg/V2.0/src
-powhegboxV2_July2015
 DMV
 slc6_amd64_gcc481/powheg/V2.0/13TeV/examples/DMV_NNPDF30_13TeV/DMV_NNPDF30_13TeV.input
-eiko_DMV
 none
 100
 123121

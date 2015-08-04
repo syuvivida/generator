@@ -1,8 +1,5 @@
-slc6_amd64_gcc481/powheg/V2.0/src
-powhegboxV2_July2015
 Wj
 slc6_amd64_gcc481/powheg/V2.0/13TeV/examples/Wj_enuj_NNPDF30_13TeV/Wj_enuj_NNPDF30_13TeV.input
-eiko_Wj
 none
 100
 1321321

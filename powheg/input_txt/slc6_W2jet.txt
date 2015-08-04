@@ -1,8 +1,5 @@
-slc6_amd64_gcc481/powheg/V2.0/src
-powhegboxV2_July2015
 W2jet
 slc6_amd64_gcc481/powheg/V2.0/13TeV/examples/W2jet_enu2jet_NNPDF30_13TeV/W2jet_enu2jet_NNPDF30_13TeV.input
-eiko_w2jet
 none
 100
 132121

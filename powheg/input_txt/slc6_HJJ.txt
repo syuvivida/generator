@@ -1,8 +1,5 @@
-slc6_amd64_gcc481/powheg/V2.0/src
-powhegboxV2_July2015
 HJJ
 $PWD/powheg.input
-eiko_HJJ
 none
 100
 12312312

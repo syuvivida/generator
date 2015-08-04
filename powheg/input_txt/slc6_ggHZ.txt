@@ -1,8 +1,5 @@
-slc6_amd64_gcc481/powheg/V2.0/src
-powhegboxV2_July2015
 ggHZ
 slc6_amd64_gcc481/powheg/V2.0/13TeV/examples/ggHZ_ggHee_NNPDF30_13TeV/ggHZ_ggHee_NNPDF30_13TeV.input
-eiko_ggHZ
 none
 100
 123121

@@ -1,8 +1,5 @@
-slc6_amd64_gcc481/powheg/V2.0/src
-powhegboxV2_July2015
 HJ
 slc6_amd64_gcc481/powheg/V2.0/13TeV/examples/HJ_NNPDF30_13TeV/HJ_NNPDF30_13TeV.input
-eiko_HJ
 none
 100
 12312312

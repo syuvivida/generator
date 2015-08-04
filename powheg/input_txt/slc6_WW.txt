@@ -1,8 +1,5 @@
-slc6_amd64_gcc481/powheg/V2.0/src
-powhegboxV2_July2015
 WW
 slc6_amd64_gcc481/powheg/V2.0/13TeV/examples/WW_llnunu_NNPDF30_13TeV/WW_llnunu_NNPDF30_13TeV.input
-eiko_WW
 none
 100
 1321312

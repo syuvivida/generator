@@ -1,8 +1,5 @@
-slc6_amd64_gcc481/powheg/V2.0/src
-powhegboxV2_July2015
 dislepton-jet
 slc6_amd64_gcc481/powheg/V2.0/13TeV/examples/dislepton-jet_NNPDF30_13TeV/dislepton-jet_NNPDF30_13TeV.input
-eiko_dislepton-jet
 none
 100
 1231231
