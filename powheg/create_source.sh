@@ -23,12 +23,11 @@ if [[ -e ${workdir} ]]; then
   fail_exit "The directory ${workdir} exists! Please clean up your work directory before running!!"
 fi
 
-mkdir $workdir
+mkdir -p $workdir
 cd $workdir
 
 ### Checkout main powheg source directory
-svn checkout --username anonymous --password anonymous svn://powhegbox.mib.infn.it/trunk/POWHEG-BOX-V2 
-mv POWHEG-BOX-V2 POWHEG-BOX
+svn checkout --username anonymous --password anonymous svn://powhegbox.mib.infn.it/trunk/POWHEG-BOX-V2 POWHEG-BOX
 
 powhegdir=$workdir/POWHEG-BOX
 
@@ -39,12 +38,11 @@ cd User-Processes-V2
 for file in $(ls $workdir/User-Processes-V2)
 do
     echo $file
-    tar cspzf ${file}.tgz $file  
-    mv ${file}.tgz $powhegdir/.
+    tar cspzf $powhegdir/${file}.tgz --exclude .svn $file  
 done
 
 cd $workdir
-tar cspzf ${output}.tar.gz POWHEG-BOX
+tar cspzf ${output}.tar.gz --exclude .svn POWHEG-BOX
 
 sourcedir=/afs/cern.ch/cms/generators/www/slc6_amd64_gcc481/powheg/V2.0/src
 
